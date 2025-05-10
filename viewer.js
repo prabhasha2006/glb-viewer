@@ -6,6 +6,12 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x808080);
 
+// Add background color control
+const bgColorPicker = document.getElementById('bg-color');
+bgColorPicker.addEventListener('input', (e) => {
+    scene.background.set(e.target.value);
+});
+
 // Camera setup
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 5;

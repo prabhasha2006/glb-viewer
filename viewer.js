@@ -6,6 +6,9 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x808080);
 
+const _width = window.innerWidth - 350
+const _height = window.innerHeight - 70
+
 // Add background color control
 const bgColorPicker = document.getElementById('bg-color');
 bgColorPicker.addEventListener('input', (e) => {
@@ -13,12 +16,12 @@ bgColorPicker.addEventListener('input', (e) => {
 });
 
 // Camera setup
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(75, _width / _height, 0.1, 1000);
 camera.position.z = 5;
 
 // Renderer setup
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(_width, _height);
 document.body.appendChild(renderer.domElement);
 
 // Controls setup

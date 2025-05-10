@@ -20,11 +20,32 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 // Lights
+// Enhanced lighting setup
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
+
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(1, 1, 1);
 scene.add(directionalLight);
+
+// Lighting controls
+const ambientIntensitySlider = document.getElementById('ambient-intensity');
+const directionalIntensitySlider = document.getElementById('directional-intensity');
+const lightColorPicker = document.getElementById('light-color');
+
+ambientIntensitySlider.addEventListener('input', (e) => {
+    ambientLight.intensity = parseFloat(e.target.value);
+});
+
+directionalIntensitySlider.addEventListener('input', (e) => {
+    directionalLight.intensity = parseFloat(e.target.value);
+});
+
+lightColorPicker.addEventListener('input', (e) => {
+    const color = new THREE.Color(e.target.value);
+    ambientLight.color.set(color);
+    directionalLight.color.set(color);
+});
 
 // GLB loader
 const loader = new GLTFLoader();
@@ -71,7 +92,7 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-// Animation loop
+// Update animation loop
 function animate() {
     requestAnimationFrame(animate);
     controls.update();

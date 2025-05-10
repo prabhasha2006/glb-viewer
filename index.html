@@ -6,67 +6,93 @@
     <title>GLB Viewer</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="./assets/dimensions.png">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <h1>
-                <img src="./assets/dimensions.png" alt="">
-                <div>
-                    <span>3D GLB Viewer</span>
-                    <small>prabhasha2006</small>
+    <div class="h-screen w-full flex flex-col">
+        <!-- Header with fixed height -->
+        <div class="flex w-full bg-indigo-950/80 backdrop-blur-lg border-b border-indigo-900/50 h-[70px]">
+            <div class="w-full px-6 py-3 flex justify-between items-center">
+                <h1 class="flex items-center gap-3">
+                    <img src="./assets/dimensions.png" alt="Logo" class="w-10 h-10 invert">
+                    <div class="flex flex-col">
+                        <span class="text-xl font-semibold text-white">3D GLB Viewer</span>
+                        <small class="text-sm text-indigo-300">prabhasha2006</small>
+                    </div>
+                </h1>
+                <div class="file-upload">
+                    <label for="file-input" class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg cursor-pointer transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>
+                            <path d="M12 9v3M9 12h6"/>
+                        </svg>
+                        <span class="hidden md:flex">Open GLB File</span>
+                    </label>
+                    <input type="file" id="file-input" accept=".glb" class="hidden">
                 </div>
-            </h1>
-            <div class="file-upload">
-                <label for="file-input" class="upload-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    Upload GLB File
-                </label>
-                <input type="file" id="file-input" accept=".glb" hidden>
             </div>
         </div>
-    </div>
-
-    <div id="lighting-controls" class="control-panel">
-        <h3>Lighting Controls</h3>
-        <div class="control-group">
-            <label>
-                <span>Ambient Light</span>
-                <input type="range" id="ambient-intensity" min="0" max="1" step="0.1" value="0.5">
-            </label>
-        </div>
-        <div class="control-group">
-            <label>
-                <span>Directional Light</span>
-                <input type="range" id="directional-intensity" min="0" max="2" step="0.1" value="1">
-            </label>
-        </div>
-        <div class="control-group">
-            <label>
-                <span>Light Color</span>
-                <input type="color" id="light-color" value="#ffffff">
-            </label>
-        </div>
-        <div class="control-group">
-            <label>
-                <span>Background</span>
-                <input type="color" id="bg-color" value="#25215E">
-            </label>
-        </div>
-        <div class="control-group light-position">
-            <h4>Light Position</h4>
-            <label>
-                <span>X Axis</span>
-                <input type="range" id="light-x" min="-10" max="10" step="0.1" value="1">
-            </label>
-            <label>
-                <span>Y Axis</span>
-                <input type="range" id="light-y" min="-10" max="10" step="0.1" value="1">
-            </label>
-            <label>
-                <span>Z Axis</span>
-                <input type="range" id="light-z" min="-10" max="10" step="0.1" value="1">
-            </label>
+    
+        <!-- Main content area that takes remaining height -->
+        <div class="flex-1 flex flex-col lg:flex-row h-[calc(100vh-70px)] text-black">
+            <div class="w-full bg-gray-300 h-[calc((100vh-70px)/2)] md:h-full" id="canvas-root"></div>
+            <div class="w-full md:w-80 bg-indigo-950 p-6 text-white overflow-y-auto h-[calc((100vh-70px)/2)] md:h-full">
+                <h3 class="text-xl font-semibold mb-6 text-indigo-300">Lighting Controls</h3>
+                <div class="space-y-6">
+                    <div class="flex w-full gap-6 flex-row md:flex-col justify-between">
+                        <div class="flex flex-col gap-2">
+                            <label class="flex flex-col gap-2">
+                                <span class="text-sm text-indigo-200">Ambient Light</span>
+                                <input type="range" id="ambient-intensity" min="0" max="1" step="0.1" value="0.5" 
+                                    class="w-full h-2 bg-indigo-800 rounded-lg appearance-none cursor-pointer">
+                            </label>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="flex flex-col gap-2">
+                                <span class="text-sm text-indigo-200">Directional Light</span>
+                                <input type="range" id="directional-intensity" min="0" max="2" step="0.1" value="1"
+                                    class="w-full h-2 bg-indigo-800 rounded-lg appearance-none cursor-pointer">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex w-full justify-between"> 
+                        <div class="flex flex-col gap-2">
+                            <label class="flex flex-col gap-2">
+                                <span class="text-sm text-indigo-200">Light Color</span>
+                                <input type="color" id="light-color" value="#ffffff"
+                                    class="w-12 h-12 bg-transparent rounded cursor-pointer">
+                            </label>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="flex flex-col gap-2">
+                                <span class="text-sm text-indigo-200">Background</span>
+                                <input type="color" id="bg-color" value="#25215E"
+                                    class="w-12 h-12 bg-transparent rounded cursor-pointer">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-lg font-medium text-indigo-300">Light Position</h4>
+                        <div class="space-y-4">
+                            <label class="flex flex-col gap-2">
+                                <span class="text-sm text-indigo-200">X Axis</span>
+                                <input type="range" id="light-x" min="-10" max="10" step="0.1" value="1"
+                                    class="w-full h-2 bg-indigo-800 rounded-lg appearance-none cursor-pointer">
+                            </label>
+                            <label class="flex flex-col gap-2">
+                                <span class="text-sm text-indigo-200">Y Axis</span>
+                                <input type="range" id="light-y" min="-10" max="10" step="0.1" value="1"
+                                    class="w-full h-2 bg-indigo-800 rounded-lg appearance-none cursor-pointer">
+                            </label>
+                            <label class="flex flex-col gap-2">
+                                <span class="text-sm text-indigo-200">Z Axis</span>
+                                <input type="range" id="light-z" min="-10" max="10" step="0.1" value="1"
+                                    class="w-full h-2 bg-indigo-800 rounded-lg appearance-none cursor-pointer">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

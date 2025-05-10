@@ -2,12 +2,15 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+// Get canvas container
+const canvasContainer = document.getElementById('canvas-root');
+
 // Scene setup
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x25215E); // 0x808080
 
-let _width = window.innerWidth - 350
-let _height = window.innerHeight - 70
+let _width = canvasContainer.clientWidth;
+let _height = canvasContainer.clientHeight;
 
 // Add background color control
 const bgColorPicker = document.getElementById('bg-color');
@@ -22,7 +25,8 @@ camera.position.z = 5;
 // Renderer setup
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(_width, _height);
-document.body.appendChild(renderer.domElement);
+canvasContainer.appendChild(renderer.domElement);
+//document.body.appendChild(renderer.domElement);
 
 // Controls setup
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -96,8 +100,8 @@ document.getElementById('file-input').addEventListener('change', function(event)
 // Handle window resize
 window.addEventListener('resize', onWindowResize, false);
 function onWindowResize() {
-    _width = window.innerWidth - 350
-    _height = window.innerHeight - 70
+    _width = canvasContainer.clientWidth;
+    _height = canvasContainer.clientHeight;
     camera.aspect = _width / _height;
     camera.updateProjectionMatrix();
     renderer.setSize(_width, _height);

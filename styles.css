@@ -47,6 +47,13 @@ canvas {
     height: 40px;
     filter: invert(1);
 }
+.header h1 div {
+    display: flex;
+    flex-direction: column;
+}
+.header h1 div small {
+    font-size: 10px;
+}
 
 .upload-btn {
     display: flex;

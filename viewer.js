@@ -4,10 +4,10 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 // Scene setup
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x808080);
+scene.background = new THREE.Color(0x25215E); // 0x808080
 
-const _width = window.innerWidth - 350
-const _height = window.innerHeight - 70
+let _width = window.innerWidth - 350
+let _height = window.innerHeight - 70
 
 // Add background color control
 const bgColorPicker = document.getElementById('bg-color');
@@ -96,9 +96,11 @@ document.getElementById('file-input').addEventListener('change', function(event)
 // Handle window resize
 window.addEventListener('resize', onWindowResize, false);
 function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    _width = window.innerWidth - 350
+    _height = window.innerHeight - 70
+    camera.aspect = _width / _height;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(_width, _height);
 }
 
 // Light position controls

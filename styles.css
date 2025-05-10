@@ -19,7 +19,7 @@ canvas {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: #1E1B4B;
     backdrop-filter: blur(10px);
     z-index: 100;
     height: 70px;
@@ -46,7 +46,7 @@ canvas {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: #2196f3;
+    background: #667eea;
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 6px;
@@ -55,7 +55,7 @@ canvas {
 }
 
 .upload-btn:hover {
-    background: #1976d2;
+    background: #5a6fd6;
 }
 
 .control-panel {
@@ -63,7 +63,7 @@ canvas {
     height: calc(100vh - 70px);
     top: 70px;
     right: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: #1E1B4B;
     backdrop-filter: blur(10px);
     padding: 1.5rem;
     border-radius: 0px;
@@ -74,7 +74,7 @@ canvas {
 .control-panel h3 {
     margin: 0 0 1.5rem 0;
     font-weight: 500;
-    color: #2196f3;
+    color: #667eea;
 }
 
 .control-panel h4 {
@@ -111,14 +111,14 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 16px;
     height: 16px;
-    background: #2196f3;
+    background: #667eea;
     border-radius: 50%;
     cursor: pointer;
     transition: background 0.3s;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-    background: #1976d2;
+    background: #5a6fd6;
 }
 
 input[type="color"] {

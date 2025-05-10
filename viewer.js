@@ -92,10 +92,32 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-// Update animation loop
+// Light position controls
+const lightXSlider = document.getElementById('light-x');
+const lightYSlider = document.getElementById('light-y');
+const lightZSlider = document.getElementById('light-z');
+
+function updateLightPosition() {
+    directionalLight.position.set(
+        parseFloat(lightXSlider.value),
+        parseFloat(lightYSlider.value),
+        parseFloat(lightZSlider.value)
+    );
+}
+
+lightXSlider.addEventListener('input', updateLightPosition);
+lightYSlider.addEventListener('input', updateLightPosition);
+lightZSlider.addEventListener('input', updateLightPosition);
+
+// Add light helper to visualize light direction
+const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
+scene.add(directionalLightHelper);
+
+// Update animation loop to include helper update
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
+    directionalLightHelper.update(); // Update light helper
     renderer.render(scene, camera);
 }
 animate();
